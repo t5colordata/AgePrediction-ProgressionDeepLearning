@@ -10,6 +10,25 @@ import numpy
 import os
 
 #Data input
+data = numpy.empty((2,3,816,816),dtype='float32')
+>>> imgs = os.listdir('./age')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'os' is not defined
+>>> import os
+imgs = os.listdir('./age')
+num = len(imgs)
+num
+j=0
+for i in range(num):
+   img = Image.open('./aligned/7153718@N04/'+imgs[i])
+   arr = numpy.asarray(img,dtype='float32')
+   data[j,:,:,:]=[arr[:,:,0],arr[:,:,1],arr[:,:,2]]
+   j=j+1
+>>> print (data.shape[0],'samples')
+(2, 'samples')
+>>> label=[13,14]
+>>> label = np_utils.to_categorical(label,2)
 
 age_list=['(0, 2)','(4, 6)','(8, 12)','(15, 20)','(25, 32)','(38, 43)','(48, 53)','(60, 100)']
 gender_list=['m','f']
@@ -37,7 +56,6 @@ img = numpy.asarray(img,dtype='float64') / 256
 img_ = img.transpose(2,0,1).reshape(1,3,816,816)
 
 nb_classes = 8
-y_train = [13]
 Y_train = np_utils.to_categorical(y_train, nb_classes)
 
 
@@ -73,7 +91,7 @@ model.add(Activation('relu'))
 model.add(Dropout(0.5))
 
 
-model.add(Dense(1))
+model.add(Dense(8))
 
 model.add(Activation('softmax'))
 
