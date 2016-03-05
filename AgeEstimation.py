@@ -51,9 +51,6 @@ for each in lines:
     dic['imageAge']=imageAge
     dic['imageGender']=imageGender
     testList.append(dic)
-img = Image.open(open('age.jpg'))
-img = numpy.asarray(img,dtype='float64') / 256
-img_ = img.transpose(2,0,1).reshape(1,3,816,816)
 
 nb_classes = 8
 Y_train = np_utils.to_categorical(y_train, nb_classes)
