@@ -1,0 +1,187 @@
+*{padding: 0; margin: 0; outline: 0;}
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0px auto;
+	padding: 0px;
+	display:block;
+}
+
+
+.topbar {
+	width: 100%;
+	height: 40px;
+	background-color: #2d3039;
+}
+
+.iconImage {
+	float: left;
+	background-color: #b2b2b2;
+	width: 40px;
+	height: 40px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.location {
+	float: left;
+	color: #FFFFFF;
+	line-height: 40px;
+	margin-left: 5px;
+	font-size: 140%;
+	font-weight: bold;
+}
+
+.imageType {
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.7);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	line-height: 200%;
+}
+
+.exampleImage {
+	position: relative;
+	text-align: center;
+	font-weight: bold;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.innerRow {
+	margin: 0;
+	padding: 0;
+}
+
+.exampleImage, img {
+	vertical-align: bottom;
+}
+.hline {
+	width: 100%;
+	height: 5px;
+	background-color: #2d3039;
+}
+
+.centerArea {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.outer {
+	display: table;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.inner {
+	margin: auto;
+	/*width: 100%;*/
+	text-align: center;
+	font-size: 120%;
+}
+
+.exampleLine {
+	width: 100%;
+	background-color: #2d3039;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+#uploadArea {
+	width: 210px;
+	height: 220px;
+	margin: 2em auto 2em auto;
+}
+
+.innerRow {
+	background-color: rgba(45,48,57,0.5);
+}
+
+#uploadLabel {
+	width: 100%;
+	background-color: rgba(100,255,100,0.4);
+	line-height: 200%;
+}
+
+.uploadImg {
+	display: inline-block;
+	cursor: pointer;	
+}
+.uploadImg:hover {
+	background-color:#aaf5ff;
+}
+
+#uploadButtons {
+	width: 100%;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.invisible {
+	display: none;
+}
+
+#dimScreen {
+	position: fixed;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(128,128,128,0.7);
+	z-index: 200;
+	display: none;
+}
+
+#results {
+	bottom: auto;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#bigImage {
+	min-width: 500px;
+	border: solid 3px;
+}
+
+#canvas, #fileSelect{
+	border: solid 3px;
+}
+
+.resultPage {
+	position: relative;
+	text-align: center;
+	font-weight: bold;
+	display: inline-block;
+	height:100%;
+}
+
+.resultTable {
+	width: 50%;
+	text-align: left;
+	border-spacing: 20px 0;
+}
+
+#fileSelect {
+	float: left;
+}
+#urlSelect {
+	float: right;
+}
+
+
+.clear{
+	float:clear;
+	padding: 0;
+	margin: 0;
+	font-size: 0;	
+}
