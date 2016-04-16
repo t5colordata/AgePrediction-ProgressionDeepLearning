@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>deep learning</title>
+    <link rel="stylesheet" type="text/css" href="/static/home.css">
+    <script src='/static/jquery-1.12.2.js'></script>
+    <script src='/static/sweetalert.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="/static/sweetalert.css">
+     <style>  
+     		html {
+				background: url("/static/background1.jpg") center;
+			}
+			input[type="file"]#id_file {
+				visibility: hidden;
+				width: 0;
+				height: 0;
+			}
+			input[type="file"]#id_file2 {
+				visibility: hidden;
+				width: 0;
+				height: 0;
+			}
+			#closeButton {
+				background-image : url("/static/Button-Close-icon1.png");
+			}
+			#closeButton:hover {
+				background-image : url("/static/Button-Close-icon2.png");
+			}	
+            #clock  
+            {  
+                position: absolute;  
+                left: 42%;  
+                top: 65px;  
+                height: 200px;  
+                width: 200px;  
+                background-color: rgb(240, 240, 240);  
+                border-style: solid;   
+                border-width: 3px;  
+                border-color: rgb(39, 72, 98);  
+                border-radius:105px;  
+                -webkit-box-shadow: 2px 0px 10px rgba(0,0,0,0.5);  
+            }  
+     		.scale  
+            {  
+                position: absolute;  
+                left: 98px;  
+                top: 90px;  
+                height: 20px;  
+                width: 4px;  
+                background-color: rgb(153, 80, 84);  
+                -webkit-box-shadow: 2px 0px 10px rgba(0,0,0,0.5);  
+            }  
+     		#hour_point  
+            {  
+                position: absolute;  
+                left: 95px;  
+                top: 80px;  
+                height: 40px;  
+                width: 10px;  
+                background-color: rgb(20, 20, 20);  
+                -webkit-box-shadow: 2px 0px 15px rgba(0,0,0,0.5);  
+            }  
+     		#min_point  
+            {  
+                position: absolute;  
+                left: 97px;  
+                top: 70px;  
+                height: 60px;  
+                width: 6px;  
+                background-color: rgb(0, 0, 0);  
+                -webkit-box-shadow: 2px 0px 10px rgba(0,0,0,0.5);  
+            }  
+     		#sec_point  
+            {  
+                position: absolute;  
+                left: 99px;  
+                top: 60px;  
+                height: 80px;  
+                width: 2px;  
+                background-color: rgb(217, 104, 49);  
+                -webkit-box-shadow: 2px 0px 5px rgba(0,0,0,0.5);  
+            }  
+      		#pin  
+            {  
+                position: absolute;  
+                left: 90px;  
+                top: 90px;  
+                height: 20px;  
+                width: 20px;  
+                background-color: rgb(230, 179, 61);  
+                border-radius:10px;  
+                -webkit-box-shadow: 2px 0px 5px rgba(0,0,0,0.5);  
+            }  
+        </style>  
+</head>
+<body>  
+		<div class="topbar" id="topbarid">
+			<div class="iconImage">
+				<img src="/static/age1.jpg" align="left" height="40px" width="50px"/>
+			</div>
+		    <div class="location">Age Prediction and Progression using Deep Learning</div>
+			<div class="clear"></div>
+		</div>
+        <div id = 'clock'>  
+            <script>  
+                for (i = 0;i < 12;++i)  
+                    document.write("<div class = 'scale'></div>");  
+            </script>  
+            <div id = 'hour_point'></div>  
+            <div id = 'min_point'></div>  
+            <div id = 'sec_point'></div>  
+            <div id = 'pin'></div>  
+        </div>  
+        <div class="outer">
+		<div class="middle">
+			<div class="inner">
+				<div id="intro">
+					<h2></h2>					
+				</div>
+				<div id="uploadArea">
+					<div id="uploadButtons">
+						<img id="fileSelect1" class="uploadImg_prediction" onclick="simulateFormClick()" src="/static/uploadme_prediction.jpg" width="200px"> 
+						<form id="fileForm1" enctype="multipart/form-data" action="/age_prediction/" method="POST">
+							{% csrf_token %}
+						    <input id="id_file" name="file"  type="file" onChange="uploadme();" multiple/>
+						</form>
+						<img id="fileSelect2" class="uploadImg_progression" onclick="simulateFormClick2()" src="/static/uploadme_progression.jpg" width="200px">
+						<form id="fileForm2" enctype="multipart/form-data" action="/age_progression/" method="POST">
+							{% csrf_token %}
+						    <input id="id_file2" name="file"  type="file" onChange="uploadme2();" multiple/>
+						</form>	
+					</div>
+				</div>
+				<div class="exampleLine">Examples</div>
+				<div id="exampleBar">
+					<div class="innerRow">
+						<div id="goleft"> 
+						<div id="gols"> 
+						<div id="goleft1">				
+							<div class="exampleImage" onclick="getExample(1,'/static/1.jpg');">
+								<img src="/static/1.jpg" height="230px">
+							</div>					
+							<div class="exampleImage" onclick="getExample(2,'/static/2.jpg');">
+								<img src="/static/2.jpg" height="230px">
+							</div>					
+							<div class="exampleImage" onclick="getExample(3,'/static/3.jpg');">
+								<img src="/static/3.jpg" height="230px">
+							</div>
+							<div class="exampleImage" onclick="getExample(4,'/static/4.jpg');">
+								<img src="/static/4.jpg" height="230px">
+							</div>
+							<div class="exampleImage" onclick="getExample(5,'/static/5.jpg');">
+								<img src="/static/5.jpg" height="230px">
+							</div>
+							<div class="exampleImage" onclick="getExample(6,'/static/6.jpg');">
+								<img src="/static/6.jpg" height="230px">
+							</div>
+							<div class="exampleImage" onclick="getExample(7,'/static/7.jpg');">
+								<img src="/static/7.jpg" height="230px">
+							</div>
+							<div class="exampleImage" onclick="getExample(8,'/static/8.jpg');">
+								<img src="/static/8.jpg" height="230px">
+							</div>	
+							<div class="exampleImage" onclick="getExample(9,'/static/9.jpg');">
+								<img src="/static/9.jpg" height="230px">
+							</div>
+							<div class="exampleImage" onclick="getExample(10,'/static/10.jpg');">
+								<img src="/static/10.jpg" height="230px">
+							</div>
+						</div>
+						<div id="goleft2"></div>
+					    </div>
+					    </div>		
+					</div>
+				</div>
+				<div class="hline"></div>
+			</div>
+			<div class="clear"></div> 
+                        <div id="note" style="float:left;display:block;margin:50px 50px 0 0;">
+                             <td>
+                             </td>
+                        </div>        
+		</div>
+        </div>
+	<div id="dimScreen" onclick="undim();" >
+		<div class="outer">
+			<div class="middle" style="height:100%;">
+				<div class="inner" id="resultPage">
+					<div class="resultPage"  onclick="stay()" style="height:100%;">
+						<div id="closeButton" onclick="undim()" ></div>
+						<img id="bigImage" height="100%"/>
+						<canvas id="canvas" class="invisible" width="500" height="400"></canvas>
+						<div id="results" class="imageType">Computing</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>  
+<script>  
+		jQuery(document).ajaxSend(function(event, xhr, settings) {
+    		function getCookie(name) {
+        	var cookieValue = null;
+        	if (document.cookie && document.cookie != '') {
+           		 var cookies = document.cookie.split(';');
+            	for (var i = 0; i < cookies.length; i++) {
+                	var cookie = jQuery.trim(cookies[i]);
+                	// Does this cookie string begin with the name we want?
+                	if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                  	  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                   	 break;
+               		 }
+          		  }
+       		 }
+        	return cookieValue;
+    	}
+   		function sameOrigin(url) {
+       		 // url could be relative or scheme relative or absolute
+       		var host = document.location.host; // host + port
+       		var protocol = document.location.protocol;
+       		var sr_origin = '//' + host;
+       		var origin = protocol + sr_origin;
+        	// Allow absolute or scheme relative URLs to same origin
+        	return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            	(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            	// or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    	}
+    	function safeMethod(method) {
+        	return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    	}
+   		if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        	xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    	}
+		});
+
+        scales = document.getElementsByClassName("scale");  
+        for (i = 0;i < 12;++i)  
+            scales[i].style.webkitTransform = "rotate(" + i * 30 + "deg) translate(0, -80px)";  
+        hour = document.getElementById('hour_point');  
+        min = document.getElementById('min_point');  
+        sec = document.getElementById('sec_point');  
+        function showTime()  
+        {  
+            Time = new Date();  
+            hour.style.webkitTransform = "rotate(" + (Time.getHours() * 30 + Time.getMinutes() * 0.5) + "deg) translate(0, -20px)";  
+            min.style.webkitTransform = "rotate(" + Time.getMinutes() * 6 + "deg) translate(0, -30px)";  
+            sec.style.webkitTransform = "rotate(" + Time.getSeconds() * 6 + "deg) translate(0, -40px)";  
+            setTimeout("showTime()", 50);  
+        }  
+        showTime();  
+
+        var speed2=20; 
+        var FGgoleft=document.getElementById('goleft'); 
+		var FGgoleft1=document.getElementById('goleft1'); 
+		var FGgoleft2=document.getElementById('goleft2'); 
+		FGgoleft2.innerHTML=FGgoleft1.innerHTML 
+		function Marquee2(){ 
+		if(FGgoleft2.offsetWidth-FGgoleft.scrollLeft<=0) 
+		{ 
+		FGgoleft.scrollLeft-=FGgoleft1.offsetWidth 
+		} 
+		else{ 
+			FGgoleft.scrollLeft++; 
+		} 
+		} 
+		var MyMar2=setInterval(Marquee2,speed2) 
+		FGgoleft.onmouseover=function() { clearInterval(MyMar2) } 
+		FGgoleft.onmouseout=function() { MyMar2=setInterval(Marquee2,speed2) } 
+
+	var clicked = false;
+	var response = [];
+	var ctx;
+	var file1;
+	
+	function stay() {clicked = true;}
+
+	function errorHandler(xhr, status, error) {
+		alert("error! " + status + " : " + error);
+	}
+
+	function isEmpty(str) {
+	    return (!str || 0 === str.length);
+	}
+
+	function getExample(id,path) {
+		showImageFromUrl(path);
+		url = "/age_prediction_" + id +"/"; 
+		$.getJSON(url, showTop5);
+	}
+	
+	function showTop5(data) {
+		response = data
+		console.log(data);
+		var results = document.getElementById("results"); 
+			
+			var arrayLength = data.length;
+			if (arrayLength === 0) {
+				results.innerHTML = "Sorry, but I could not detect any faces in this image.";
+				results.style.display = 'inline';
+			}
+			else {
+				results.style.display = 'none';
+			}
+			document.getElementById("results").style.display = 'inline';
+			document.getElementById("results").innerHTML=data		}
+	
+	function dimScreen(type) {
+		document.getElementById('canvas').className = type==0? "invisible" : "";
+		document.getElementById('bigImage').className = type==0? "" : "invisible";
+		document.getElementById('dimScreen').style.display = 'inline';
+		document.getElementById("results").style.display = 'inline';
+		document.getElementById("results").innerHTML = "computing...";
+	}
+	
+	function undim() {
+		clicked? clicked=false : document.getElementById('dimScreen').style.display = 'none'; 
+	}
+
+	$(document).keyup(function(e) {
+		if (e.keyCode == 27) {
+			undim();
+		}
+	});	
+
+	function uploadme(){
+		var file = document.getElementById("id_file").files[0];
+		if (file !== undefined) { // when User presses cancel
+			showImageFromFile(file);
+		//	var formData = new FormData();
+		   // formData.append("image",$('form')[0])
+		    var formData = new FormData($('#fileForm1')[0]);
+
+		    $.ajax({
+		        url: '/age_prediction/',
+		        type: 'POST',
+		        data: formData,
+		        success: showTop5,
+				error : errorHandler,
+		        cache: false,
+		        contentType: false,
+		        processData: false,
+				dataType : "json"
+		    });
+	   }
+	}
+
+	function showAgeProgression(data){
+		response = data
+		console.log(data);
+		var results = document.getElementById("results"); 
+			
+			var arrayLength = data.length;
+			if (arrayLength === 0) {
+				swal({   title: "Deep learning is amazing!",   text: "Please upload the second image!",     confirmButtonText: "Cool" });
+			}
+			else if (data == 1){
+				swal({   title: "Deep learning is amazing!",   text: "They are the same person!",     confirmButtonText: "Cool" });
+			}else {
+				swal({   title: "Deep learning is amazing!",   text: "They are not the same person!",     confirmButtonText: "Cool" });
+			}
+			
+	
+	
+	}
+
+	function uploadme2(){
+			var file = document.getElementById("id_file2").files[0];
+		if (file !== undefined) { // when User presses cance
+		//	var formData = new FormData();
+		   // formData.append("image",$('form')[0])
+		    var formData = new FormData($('#fileForm2')[0]);
+		   
+
+		    $.ajax({
+		        url: '/age_progression/',
+		        type: 'POST',
+		        data: formData,
+		        success: showAgeProgression,
+				error : errorHandler,
+		        cache: false,
+		        contentType: false,
+		        processData: false,
+				dataType : "json"
+		    });
+	   }
+			
+		    
+	}
+
+//	function uploadme2(){
+//		swal({   title: "Deep learning is amazing!",   text: "They are the same person!",     confirmButtonText: "Cool" });
+//	}
+
+	function simulateFormClick() {
+		console.log("form click!");
+		document.querySelector("#id_file").click();		
+	}
+
+	function simulateFormClick2() {
+		console.log("form click!");	
+		document.querySelector("#id_file2").click();	
+	}
+
+
+	
+	function drawImageScaled(img, ctx) {
+		var canvas = ctx.canvas;
+		var hRatio = canvas.width / img.width;
+		var vRatio = canvas.height / img.height;
+		var ratio = Math.min(hRatio, vRatio);
+		var centerShift_x = (canvas.width - img.width * ratio) / 2;
+		var centerShift_y = (canvas.height - img.height * ratio) / 2;
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.drawImage(img, 0, 0, img.width, img.height, centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+	}
+	
+	function showImageFromFile(file) {
+		var canvas = document.getElementById('canvas');
+		ctx = canvas.getContext('2d');
+		window.img = new Image();
+		var url = window.URL || window.webkitURL;
+		var src = url.createObjectURL(file);
+		window.img.src = src;
+		window.img.onload = function() {
+			var bounds = [window.innerWidth * 0.8, window.innerHeight * 0.8];
+			window.ratio = Math.min(bounds[0] / window.img.width, bounds[1] / window.img.height);
+			canvas.height = window.img.height * ratio;
+			canvas.width = window.img.width * ratio;
+			drawImageScaled(window.img, ctx);
+			url.revokeObjectURL(src);
+		};
+		dimScreen(1);
+	}
+
+	function showImageFromUrl(url) {
+		var canvas = document.getElementById('canvas');
+		ctx = canvas.getContext('2d');
+		window.img = new Image();
+		window.img.src = url;
+		window.img.onload = function() {
+			var bounds = [window.innerWidth * 0.8, window.innerHeight * 0.8];
+			window.ratio = Math.min(bounds[0] / window.img.width, bounds[1] / window.img.height);
+			canvas.height = img.height * ratio;
+			canvas.width = window.img.width * ratio;
+			drawImageScaled(window.img, ctx);
+			// document.getElementById('bigImage').style.height = canvas.height;
+		};
+		dimScreen(1);
+	}
+	
+	function correctMe(window_id) {
+		var age = prompt("Please enter the correct age", "");
+		if (age != null) {
+		    $.ajax({
+		        url: "/api/correction/",
+		        type: 'POST',
+		        success: function(data) {alert(data);},
+				error : errorHandler,
+		        data: {"window_id" : window_id,
+		        	   "correction" : age},
+		    });
+		}
+	}
+	
+	function onMouseDown(e) {
+		var x = e.offsetX / window.ratio;
+		var y = e.offsetY / window.ratio;
+
+		var arrayLength = response.length;
+		for (var i = 0; i < arrayLength; i++) {
+			face = response[i];
+			pos = face["position"];
+						
+			if (x > pos[0] && x < (pos[0] + pos[2]) &&
+				y > pos[1] && y < (pos[1] + pos[3]+30)) {
+				correctMe(i);				
+				break;
+			}				
+		}
+	}
+	
+	var canvas = document.getElementById("canvas");
+	canvas.addEventListener("mousedown", onMouseDown, false);
+	
+	window.onresize=function(){
+		if (document.getElementById('canvas').className !== 'invisible') {
+			var canvas = document.getElementById('canvas');
+			var bounds = [window.innerWidth * 0.8, window.innerHeight * 0.8];
+			window.ratio = Math.min(bounds[0] / window.img.width, bounds[1] / window.img.height);
+			canvas.height = window.img.height * ratio;
+			canvas.width = window.img.width * ratio;
+			drawImageScaled(window.img, ctx);
+			showTop5(response);
+		}
+	};
+
+
+</script>  
+</html>
