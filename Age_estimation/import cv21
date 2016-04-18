@@ -1,0 +1,24 @@
+import cv2
+import numpy as np
+
+eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+left_ear_Cascade = cv2.CascadeClassifier('./cascade_files/haarcascade_mcs_leftear.xml')
+right_ear_Cascade = cv2.CascadeClassifier('./cascade_files/haarcascade_mcs_rightear.xml')
+
+img=cv2.imread('image')
+left_ear=left_ear_cascade.detectMultiScale(gray,1.3,5)
+right_ear=right_ear_cascade.detectMultiScale(gray,1.3,5)
+eyes=eye_cascade.detectMultiScale(gray,1.3,5)
+
+
+for (ex,ey,ew,eh) in eyes:
+        cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+
+for (x,y,w,h) in left_ear:
+   cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0))
+
+
+for (x,y,w,h) in right_ear:
+   cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0))
+
+

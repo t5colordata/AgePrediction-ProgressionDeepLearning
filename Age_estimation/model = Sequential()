@@ -1,0 +1,48 @@
+model = Sequential()
+
+
+model.add(Convolution2D(96, 3, 3, border_mode='valid', input_shape=(3, 227, 227)))
+model.add(Activation('relu'))
+model.add(Convolution2D(96, 3, 3, border_mode='valid'))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(3, 3), strides=(1, 1)))
+model.add(BatchNormalization())
+
+
+model.add(Convolution2D(128, 3, 3))
+model.add(Activation('relu'))
+model.add(Convolution2D(128, 3, 3))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
+model.add(BatchNormalization())
+
+
+model.add(Convolution2D(256, 3, 3))
+model.add(Activation('relu'))
+model.add(Convolution2D(256, 3, 3))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
+
+model.add(Flatten())
+
+
+model.add(Dense(128))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
+
+
+model.add(Dense(128))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
+
+
+model.add(Dense(8))
+
+model.add(Activation('softmax'))
+
+model.compile(loss='categorical_crossentropy', optimizer='Adam')
+
+#sgd = SGD(lr=0.1, decay=0.0005, momentum=0.9, nesterov=True)
+#model.compile(loss='categorical_crossentropy', optimizer=sgd)
+
+model.fit(X_train, y_train2, batch_size=32, nb_epoch=15)
